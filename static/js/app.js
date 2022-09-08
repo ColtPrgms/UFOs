@@ -31,20 +31,22 @@ function updateFilters() {
 
     // 4a. Save the element that was changed as a variable.
     let efilter = d3.select(this);
-    console.log(efilter)
+    // console.log(efilter)
+
     // 4b. Save the value that was changed as a variable.
     let vfilter = efilter.property("value");
-    console.log(vfilter)
+    // console.log(vfilter)
 
     // 4c. Save the id of the filter that was changed as a variable.
     let filterId = efilter.attr("id");
-    console.log(filterId)
+    // console.log(filterId)
 
     // 5. If a filter value was entered then add that filterId and value
     // to the filters list. Otherwise, clear that filter from the filters object.
-    if (vfilter !== null) {
+    if (vfilter) {
       filters[filterId] = vfilter;
-      console.log(filters[filterId])
+      // console.log(filters[filterId])
+
     }
     else {
       delete filters[filterId];
@@ -63,12 +65,10 @@ function updateFilters() {
   
     // 9. Loop through all of the filters and keep any data that
     // matches the filter values
-    // date,city,state,country,shape
-    for ( i = 0; i < filters.length; i++) {
-      let filterItem = filters[i]
-      filteredTable.append(filterItem)
-      console.log("---TEST---")
-    }
+    Object.entries(filters).forEach(([key, value]) => {
+      filteredTable = filteredTable.filter(row => row[key] === value);
+      // console.log("---TEST---");
+    });
 
   
     // 10. Finally, rebuild the table using the filtered data
